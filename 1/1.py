@@ -1,3 +1,7 @@
+import sys
+sys.path.append("C:\\dev\\aoc2021")
+from util import solution_checker 
+
 def tally_depth_increase_1(filename: str) -> int:
     prev = None
     tally = 0
@@ -30,27 +34,17 @@ def tally_depth_increase_2(filename: str) -> int:
 
     return tally
 
-example_file = "example-input.txt"
-challenge_file = "input.txt"
+example_file = ".\\1\example-input.txt"
+challenge_file = ".\\1\input.txt"
 expected_example_tally_1 = 7
 expected_example_tally_2 = 5
 
 example_tally_1 = tally_depth_increase_1(example_file)
 challenge_tally_1 = tally_depth_increase_1(challenge_file)
 
-if (example_tally_1 == expected_example_tally_1):
-    print("Example 1 passing")
-    print(f"Challenge 1 Answer: {challenge_tally_1}")
-else:
-    print("Example 1 failing")
-    print(f"Expected: {expected_example_tally_1}, Got: {example_tally_1}")
+solution_checker(expected_example_tally_1, example_tally_1, challenge_tally_1)
 
 example_tally_2 = tally_depth_increase_2(example_file)
 challenge_tally_2 = tally_depth_increase_2(challenge_file)
 
-if (example_tally_2 == expected_example_tally_2):
-    print("Example 2 passing")
-    print(f"Challenge 2 Answer: {challenge_tally_2}")
-else:
-    print("Example 2 failing")
-    print(f"Expected: {expected_example_tally_2}, Got: {example_tally_2}")
+solution_checker(expected_example_tally_2, example_tally_2, challenge_tally_2)

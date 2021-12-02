@@ -1,3 +1,7 @@
+import sys
+sys.path.append("C:\\dev\\aoc2021")
+from util import solution_checker
+
 def get_position_and_depth_product_1(filename):
     position = 0
     depth = 0
@@ -47,27 +51,17 @@ def get_position_and_depth_product_2(filename):
     print(f"{filename=} {position=} {depth=}")
     return position * depth
 
-example_file = "example-input.txt"
-challenge_file = "input.txt"
+example_file = ".\\2\example-input.txt"
+challenge_file = ".\\2\input.txt"
 expected_example_product_1 = 15 * 10
 expected_example_product_2 = 15 * 60
 
 example_product_1 = get_position_and_depth_product_1(example_file)
 challenge_product_1 = get_position_and_depth_product_1(challenge_file)
 
-if (example_product_1 == expected_example_product_1):
-    print("Example 1 passing")
-    print(f"Challenge 1 Answer: {challenge_product_1}")
-else:
-    print("Example 1 failing")
-    print(f"Expected: {expected_example_product_1}, Got: {example_product_1}")
+solution_checker(expected_example_product_1, example_product_1, challenge_product_1)
 
 example_product_2 = get_position_and_depth_product_2(example_file)
 challenge_product_2 = get_position_and_depth_product_2(challenge_file)
 
-if (example_product_2 == expected_example_product_2):
-    print("Example 2 passing")
-    print(f"Challenge 2 Answer: {challenge_product_2}")
-else:
-    print("Example 2 failing")
-    print(f"Expected: {expected_example_product_2}, Got: {example_product_2}")
+solution_checker(expected_example_product_2, example_product_2, challenge_product_2)

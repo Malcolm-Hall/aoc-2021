@@ -1,5 +1,5 @@
 import sys
-sys.path.append("C:\\dev\\aoc2021")
+sys.path.append("C:\\dev\\aoc-2021")
 from util import solution_checker
 
 def get_position_and_depth_product_1(filename):
@@ -22,7 +22,7 @@ def get_position_and_depth_product_1(filename):
                 case _:
                     print("Panic!")
                     
-    print(f"{filename=} {position=} {depth=}")
+    # print(f"{filename=} {position=} {depth=}")
     return position * depth
 
 def get_position_and_depth_product_2(filename):
@@ -48,11 +48,11 @@ def get_position_and_depth_product_2(filename):
                 case _:
                     print("Panic!")
                     
-    print(f"{filename=} {position=} {depth=}")
+    # print(f"{filename=} {position=} {depth=}")
     return position * depth
 
-example_file = ".\\2\example-input.txt"
-challenge_file = ".\\2\input.txt"
+example_file = ".\\02\example-input.txt"
+challenge_file = ".\\02\input.txt"
 expected_example_product_1 = 15 * 10
 expected_example_product_2 = 15 * 60
 

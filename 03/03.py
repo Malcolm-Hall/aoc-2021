@@ -1,95 +1,85 @@
 import sys
-sys.path.append("C:\\dev\\aoc-2021")
+sys.path.append("./")
 from util import solution_checker
 
-def power_consumption(filename):
+example_file = "./03/example-input.txt"
+challenge_file = "./03/input.txt"
+
+def parse_input(filename):
     input = []
-    gamma = []
-    epsilon = []
     with open(filename) as f:
         for line in f:
             input.append([char for char in line if char != '\n'])
+    return input
+
+def parse_to_decimal(bin_array):
+    bin_str = '0b'
+    for char in bin_array:
+        bin_str += char
+    return int(bin_str, 2)
+
+def get_zeros_and_ones(input, i):
+    zeros = []
+    ones = []
+    for line in input:
+        if line[i] == '0':
+            zeros.append(line)
+        elif line[i] == '1':
+            ones.append(line)
+    return zeros, ones
+
+def power_consumption(filename):
+    input = parse_input(filename)
+    gamma = []
+    epsilon = []
     
     for i in range(len(input[0])):
-        zero = 0
-        one = 0
-        for line in input:
-            if line[i] == '0':
-                zero += 1
-            elif line[i] == '1':
-                one += 1
+        zeros, ones = get_zeros_and_ones(input, i)
         
-        if zero > one:
+        if len(zeros) > len(ones):
             gamma.append('0')
             epsilon.append('1')
-        elif one > zero:
+        elif len(ones) > len(zeros):
             gamma.append('1')
             epsilon.append('0')
         else:
             raise Exception("Panic!")
     
-    gamma_bin = '0b'
-    epsilon_bin = '0b'
-    for gbit, ebit in zip(gamma, epsilon):
-        gamma_bin += gbit
-        epsilon_bin += ebit
-
-    return int(gamma_bin, 2) * int(epsilon_bin, 2)
+    gamma_value = parse_to_decimal(gamma)
+    epsilon_value = parse_to_decimal(epsilon)
+    return gamma_value * epsilon_value
 
 def life_support_rating(filename):
-    input = []
-    with open(filename) as f:
-        for line in f:
-            input.append([char for char in line if char != '\n'])
+    input = parse_input(filename)
     
     def search(input, breaker):
         tree = input
-        i = 0
-        while len(tree) > 1:
-            zero = 0
-            one = 0
-            zeros = []
-            ones = []
-            for line in tree:
-                if line[i] == '0':
-                    zero += 1
-                    zeros.append(line)
-                elif line[i] == '1':
-                    one += 1
-                    ones.append(line)
-            i += 1
+        for i in range(len(tree[0])):
+            zeros, ones = get_zeros_and_ones(tree, i)
 
             if breaker == '0':
-                if len(zeros) > len(ones):
-                    tree = ones
-                elif len(zeros) < len(ones):
-                    tree = zeros
-                else:
-                    tree = zeros
+                gt_case = ones
+                lte_case = zeros
             elif breaker == '1':
-                if len(zeros) > len(ones):
-                    tree = zeros
-                elif len(zeros) < len(ones):
-                    tree = ones
-                else:
-                    tree = ones
+                gt_case = zeros
+                lte_case = ones
             else:
                 raise Exception("Panic!")
 
-        output_bin = '0b'
-        for char in tree[0]:
-            output_bin += char
+            if len(zeros) > len(ones):
+                tree = gt_case
+            elif len(zeros) <= len(ones):
+                tree = lte_case
+            
+            if len(tree) == 1:
+                break
 
-        return int(output_bin, 2)
+        return parse_to_decimal(tree[0])
 
     oxy_rating = search(input, '1')
     co2_rating = search(input, '0')
     return oxy_rating * co2_rating
-        
-        
 
-example_file = ".\\03\example-input.txt"
-challenge_file = ".\\03\input.txt"
 expected_example_power = 22 * 9
 expected_example_rating = 23 * 10
 

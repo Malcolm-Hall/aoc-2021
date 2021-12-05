@@ -1,6 +1,9 @@
 import sys
-sys.path.append("C:\\dev\\aoc-2021")
+sys.path.append("./")
 from util import solution_checker 
+
+example_input_file = "./01/example-input.txt"
+challenge_input_file = "./01/input.txt"
 
 def tally_depth_increase_1(filename: str) -> int:
     prev = None
@@ -34,17 +37,15 @@ def tally_depth_increase_2(filename: str) -> int:
 
     return tally
 
-example_file = ".\\01\example-input.txt"
-challenge_file = ".\\01\input.txt"
 expected_example_tally_1 = 7
 expected_example_tally_2 = 5
 
-example_tally_1 = tally_depth_increase_1(example_file)
-challenge_tally_1 = tally_depth_increase_1(challenge_file)
+example_tally_1 = tally_depth_increase_1(example_input_file)
+challenge_tally_1 = tally_depth_increase_1(challenge_input_file)
 
 solution_checker(expected_example_tally_1, example_tally_1, challenge_tally_1)
 
-example_tally_2 = tally_depth_increase_2(example_file)
-challenge_tally_2 = tally_depth_increase_2(challenge_file)
+example_tally_2 = tally_depth_increase_2(example_input_file)
+challenge_tally_2 = tally_depth_increase_2(challenge_input_file)
 
 solution_checker(expected_example_tally_2, example_tally_2, challenge_tally_2)

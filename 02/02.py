@@ -1,67 +1,53 @@
 import sys
-sys.path.append("C:\\dev\\aoc-2021")
+sys.path.append("./")
 from util import solution_checker
 
-def get_position_and_depth_product_1(filename):
-    position = 0
-    depth = 0
+example_input_file = "./02/example-input.txt"
+challenge_input_file = "./02/input.txt"
 
-    with open(filename) as f:
-        for line in f:
-            cmd, amt = line.split(" ", 1)
-            amt = int(amt)
-            match cmd:
-                case "forward":
-                    position += amt
-                case "backward":
-                    position -= amt
-                case "down":
-                    depth += amt
-                case "up":
-                    depth -= amt
-                case _:
-                    print("Panic!")
-                    
-    # print(f"{filename=} {position=} {depth=}")
-    return position * depth
-
-def get_position_and_depth_product_2(filename):
+def get_position_and_depth_product(filename, move_fn):
     position = 0
     depth = 0
     aim = 0
-
     with open(filename) as f:
         for line in f:
             cmd, amt = line.split(" ", 1)
             amt = int(amt)
-            match cmd:
-                case "forward":
-                    position += amt
-                    depth += aim * amt
-                case "backward":
-                    position -= amt
-                    depth -= aim * amt
-                case "down":
-                    aim += amt
-                case "up":
-                    aim -= amt
-                case _:
-                    print("Panic!")
+            position, depth, aim += move_fn(cmd, amt, aim)
                     
-    # print(f"{filename=} {position=} {depth=}")
     return position * depth
 
-example_file = ".\\02\example-input.txt"
-challenge_file = ".\\02\input.txt"
+def move_1(cmd, amt, aim):
+    match cmd:
+        case "forward":
+            return amt, 0, 0
+        case "down":
+            return 0, amt, 0
+        case "up":
+            return 0, -1*amt, 0
+        case _:
+            raise Exception("Panic!")
+
+def move_2(cmd, amt, aim):
+    match cmd:
+        case "forward":
+            return amt, aim*amt, 0
+        case "down":
+            return 0, 0, amt
+        case "up":
+            return 0, 0, -1*amt
+        case _:
+            raise Exception("Panic!")
+
 expected_example_product_1 = 15 * 10
 expected_example_product_2 = 15 * 60
 
-example_product_1 = get_position_and_depth_product_1(example_file)
-challenge_product_1 = get_position_and_depth_product_1(challenge_file)
+example_product_1 = get_position_and_depth_product(example_input_file, move_1)
+challenge_product_1 = get_position_and_depth_product(challenge_input_file, move_1)
 
 solution_checker(expected_example_product_1, example_product_1, challenge_product_1)
 
-example_product_2 = get_position_and_depth_product_2(example_file)
-challenge_product_2 = get_position_and_depth_product_2(challenge_file)
+example_product_2 = get_position_and_depth_product(example_input_file, move_2)
+challenge_product_2 = get_position_and_depth_product(challenge_input_file, move_2)
 
 solution_checker(expected_example_product_2, example_product_2, challenge_product_2)

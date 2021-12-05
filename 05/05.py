@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/malcolm/Projects/aoc-2021")
+sys.path.append("./")
 from util import solution_checker
 
 example_input_file = "./05/example-input.txt"
@@ -17,7 +17,7 @@ def sign(number):
 def number_of_dangerous_points(filename, diagonals=False):
     overlap = Counter()
     with open(filename) as f:
-        for line in f.readlines():
+        for line in f:
             bits = line.split(" ") # [point_1, "->", point_2]
             loc = {}
             exec(f"start = ({bits[0]}) \nend = ({bits[2]})", {}, loc)

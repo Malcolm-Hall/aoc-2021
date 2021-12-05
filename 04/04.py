@@ -1,6 +1,9 @@
 import sys
-sys.path.append("/home/malcolm/Projects/aoc-2021")
+sys.path.append("./")
 from util import solution_checker
+
+example_input_file = "./04/example-input.txt"
+challenge_input_file = "./04/input.txt"
 
 def parse_input(filename):
     input_boards = []
@@ -40,7 +43,7 @@ def get_score(board, call):
     print(f"{board_sum=} {call=}")
     return board_sum * call
 
-def remove_winners(input_boards, call, best: bool):
+def remove_winners(input_boards, call, get_best):
     removals = []
     for board_idx, board in enumerate(input_boards):
             for row in board:
@@ -58,7 +61,7 @@ def remove_winners(input_boards, call, best: bool):
                                 winner = True
                                 break
                         if winner:
-                            if best or len(input_boards) == 1:
+                            if get_best or len(input_boards) == 1:
                                 return get_score(board, call)
                             else:
                                 removals.append(board_idx)
@@ -68,19 +71,10 @@ def remove_winners(input_boards, call, best: bool):
         input_boards.pop(idx)
 
 
-def best_final_score(filename):
+def get_final_score(filename, get_best):
     input_boards, call_stack = parse_input(filename)
-    # Do something with the input boards
     for call in call_stack:
-        score = remove_winners(input_boards, call, True)
-        if score is not None:
-            return score
-
-def worst_final_score(filename):
-    input_boards, call_stack = parse_input(filename)
-    # Do something with the input boards
-    for call in call_stack:
-        score = remove_winners(input_boards, call, False)
+        score = remove_winners(input_boards, call, get_best)
         if score is not None:
             return score
 
@@ -88,12 +82,12 @@ def worst_final_score(filename):
 expected_example_best_score = 188 * 24
 expected_example_worst_score = 148 * 13
 
-example_best_score = best_final_score("./04/example-input.txt")
-challenge_best_score = best_final_score("./04/input.txt")
+example_best_score = get_final_score(example_input_file, True)
+challenge_best_score = get_final_score(challenge_input_file, True)
 
 solution_checker(expected_example_best_score, example_best_score, challenge_best_score)
 
-example_worst_score = worst_final_score("./04/example-input.txt")
-challenge_worst_score = worst_final_score("./04/input.txt")
+example_worst_score = get_final_score(example_input_file, False)
+challenge_worst_score = get_final_score(challenge_input_file, False)
 
 solution_checker(expected_example_worst_score, example_worst_score, challenge_worst_score)

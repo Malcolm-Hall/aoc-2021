@@ -1,5 +1,4 @@
 import os
-import shutil
 
 Day = str
 
@@ -26,8 +25,11 @@ def make_input_files(day: Day, suffix: str = ".txt"):
     make_file(challenge_input_path)
     make_file(example_input_path)
 
+def make_template(src_suffix: str = ".py", input_suffix: str = ".txt"):
+    for i in range(1, 26):
+        day = format_day(i)
+        make_source_file(day, src_suffix)
+        make_input_files(day, input_suffix)
 
-
-
-day07 = format_day(7)
-make_source_file(day07)
+if __name__ == '__main__':
+    make_template()

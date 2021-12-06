@@ -43,24 +43,25 @@ def make_template(from_day: int = 1, to_day: int = 25, src_suffix: str = ".py", 
     make_file(util_file)
     for i in range(from_day, to_day + 1):
         day = format_day(i)
-        make_source_and_input_file(day, src_suffix)
+        make_source_and_input_file(day, src_suffix, input_suffix)
         make_instruction_file(day, input_suffix)
 
-if __name__ == '__main__':
-    argv = sys.argv
-    kwarg_map = {
+def parse_argv():
+    kwargs = {
         "_": "_",
         "from_day": 1, 
         "to_day": 25, 
         "src_suffix": ".py", 
         "input_suffix": ".txt"
     }
-    for i, [key, arg] in enumerate(zip(kwarg_map.keys(), argv)):
+    for key, arg in zip(kwargs.keys(), sys.argv):
         parsed_arg = arg
-        if i == 0:
-            continue
-        elif i <= 2:
+        if type(kwargs[key]) is int:
             parsed_arg = int(arg)
-        kwarg_map[key] = parsed_arg
-    kwarg_map.pop("_")
-    make_template(**kwarg_map)
+        kwargs[key] = parsed_arg
+    kwargs.pop("_")
+    return kwargs
+
+if __name__ == '__main__':
+    kwargs = parse_argv()
+    make_template(**kwargs)

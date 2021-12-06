@@ -1,9 +1,7 @@
-import sys
-sys.path.append("./")
-from util import solution_checker
+from util import solution_checker 
 
-example_input_file = "./02/example-input.txt"
-challenge_input_file = "./02/input.txt"
+example_input_file = "./input/02-example.txt"
+challenge_input_file = "./input/02.txt"
 
 def get_position_and_depth_product(filename, move_fn):
     position = 0

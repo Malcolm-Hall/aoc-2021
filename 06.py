@@ -1,9 +1,7 @@
-import sys
-sys.path.append("./")
 from util import solution_checker 
 
-example_input_file = "./06/example-input.txt"
-challenge_input_file = "./06/input.txt"
+example_input_file = "./input/06-example.txt"
+challenge_input_file = "./input/06.txt"
 
 class LanternfishEvolver:
     children = 0

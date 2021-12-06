@@ -1,9 +1,7 @@
-import sys
-sys.path.append("./")
 from util import solution_checker
 
-example_input_file = "./04/example-input.txt"
-challenge_input_file = "./04/input.txt"
+example_input_file = "./input/04-example.txt"
+challenge_input_file = "./input/04.txt"
 
 def parse_input(filename):
     input_boards = []

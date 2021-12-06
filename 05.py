@@ -1,9 +1,7 @@
-import sys
-sys.path.append("./")
 from util import solution_checker
 
-example_input_file = "./05/example-input.txt"
-challenge_input_file = "./05/input.txt"
+example_input_file = "./input/05-example.txt"
+challenge_input_file = "./input/05.txt"
 
 class Counter(dict):
     def __missing__(self, key):

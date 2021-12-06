@@ -1,9 +1,7 @@
-import sys
-sys.path.append("./")
 from util import solution_checker
 
-example_file = "./03/example-input.txt"
-challenge_file = "./03/input.txt"
+example_input_file = "./input/03-example.txt"
+challenge_input_file = "./input/03.txt"
 
 def parse_input(filename):
     input = []
@@ -83,12 +81,12 @@ def life_support_rating(filename):
 expected_example_power = 22 * 9
 expected_example_rating = 23 * 10
 
-example_power = power_consumption(example_file)
-challenge_power = power_consumption(challenge_file)
+example_power = power_consumption(example_input_file)
+challenge_power = power_consumption(challenge_input_file)
 
 solution_checker(expected_example_power, example_power, challenge_power)
 
-example_rating = life_support_rating(example_file)
-challenge_rating = life_support_rating(challenge_file)
+example_rating = life_support_rating(example_input_file)
+challenge_rating = life_support_rating(challenge_input_file)
 
 solution_checker(expected_example_rating, example_rating, challenge_rating)

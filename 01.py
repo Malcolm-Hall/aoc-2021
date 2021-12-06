@@ -1,9 +1,7 @@
-import sys
-sys.path.append("./")
 from util import solution_checker 
 
-example_input_file = "./01/example-input.txt"
-challenge_input_file = "./01/input.txt"
+example_input_file = "./input/01-example.txt"
+challenge_input_file = "./input/01.txt"
 
 def tally_depth_increase_1(filename: str) -> int:
     prev = None

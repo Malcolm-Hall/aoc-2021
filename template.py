@@ -17,36 +17,33 @@ def make_file(path, contents: str = ""):
         with open(path, 'w') as f:
             f.write(contents)
 
-def make_source_file(day: Day, suffix: str = ".py"):
-    src_path = f"./{day}{suffix}"
-    if suffix == ".py":
-        contents = (
+def make_source_and_input_file(day: Day, src_suffix: str = ".py", input_suffix: str = ".txt"):
+    challenge_input_path = f"./input/{day}{input_suffix}"
+    example_input_path = f"./input/{day}-example{input_suffix}"
+    src_path = f"./{day}{src_suffix}"
+    src_contents = ""
+    if src_suffix == ".py":
+        src_contents = (
             "from util import solution_checker \n"
             "\n"
-            "example_input_file = \"./input/01-example.txt\" \n"
-            "challenge_input_file = \"./input/01.txt\" \n"
+            f"example_input_file = \"{example_input_path}\" \n"
+            f"challenge_input_file = \"{challenge_input_path}\" \n"
         )
-    make_file(src_path, contents)
+    make_file(challenge_input_path)
+    make_file(example_input_path)
+    make_file(src_path, src_contents)
 
 def make_instruction_file(day: Day, suffix: str = ".txt"):
     instruction_path = f"./instructions/{day}{suffix}"
     make_file(instruction_path)
-
-def make_input_files(day: Day, suffix: str = ".txt"):
-    base_path = f"./input/{day}"
-    challenge_input_path = base_path + suffix
-    example_input_path = base_path + "-example" + suffix
-    make_file(challenge_input_path)
-    make_file(example_input_path)
 
 def make_template(from_day: int = 1, to_day: int = 25, src_suffix: str = ".py", input_suffix: str = ".txt"):
     util_file = "./util.py"
     make_file(util_file)
     for i in range(from_day, to_day + 1):
         day = format_day(i)
-        make_source_file(day, src_suffix)
+        make_source_and_input_file(day, src_suffix)
         make_instruction_file(day, input_suffix)
-        make_input_files(day, input_suffix)
 
 if __name__ == '__main__':
     argv = sys.argv

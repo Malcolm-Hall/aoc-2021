@@ -9,17 +9,28 @@ def format_day(number: int) -> Day:
         return str(number)
     raise Exception("'Bouta Explode")
 
-def make_file(path):
+def make_file(path, contents: str = ""):
     dir = os.path.dirname(path)
     if not os.path.isdir(dir):
         os.makedirs(dir)
     if not os.path.isfile(path):
-        with open(path, 'w'):
-            pass
+        with open(path, 'w') as f:
+            f.write(contents)
 
 def make_source_file(day: Day, suffix: str = ".py"):
     src_path = f"./{day}{suffix}"
-    make_file(src_path)
+    if suffix == ".py":
+        contents = (
+            "from util import solution_checker \n"
+            "\n"
+            "example_input_file = \"./input/01-example.txt\" \n"
+            "challenge_input_file = \"./input/01.txt\" \n"
+        )
+    make_file(src_path, contents)
+
+def make_instruction_file(day: Day, suffix: str = ".txt"):
+    instruction_path = f"./instructions/{day}{suffix}"
+    make_file(instruction_path)
 
 def make_input_files(day: Day, suffix: str = ".txt"):
     base_path = f"./input/{day}"
@@ -29,9 +40,12 @@ def make_input_files(day: Day, suffix: str = ".txt"):
     make_file(example_input_path)
 
 def make_template(from_day: int = 1, to_day: int = 25, src_suffix: str = ".py", input_suffix: str = ".txt"):
+    util_file = "./util.py"
+    make_file(util_file)
     for i in range(from_day, to_day + 1):
         day = format_day(i)
         make_source_file(day, src_suffix)
+        make_instruction_file(day, input_suffix)
         make_input_files(day, input_suffix)
 
 if __name__ == '__main__':

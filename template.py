@@ -10,6 +10,9 @@ def format_day(number: int) -> Day:
     raise Exception("'Bouta Explode")
 
 def make_file(path):
+    dir = os.path.dirname(path)
+    if not os.path.isdir(dir):
+        os.makedirs(dir)
     if not os.path.isfile(path):
         with open(path, 'w'):
             pass

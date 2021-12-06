@@ -1,7 +1,8 @@
-from util import solution_checker
+from util import solution_checker, Bot
 
 example_input_file = "./input/03-example.txt"
 challenge_input_file = "./input/03.txt"
+bot = Bot(example_input_file, challenge_input_file)
 
 def parse_input(filename):
     input = []
@@ -78,15 +79,8 @@ def life_support_rating(filename):
     co2_rating = search(input, '0')
     return oxy_rating * co2_rating
 
-expected_example_power = 22 * 9
-expected_example_rating = 23 * 10
+expected_power = 22 * 9
+expected_rating = 23 * 10
 
-example_power = power_consumption(example_input_file)
-challenge_power = power_consumption(challenge_input_file)
-
-solution_checker(expected_example_power, example_power, challenge_power)
-
-example_rating = life_support_rating(example_input_file)
-challenge_rating = life_support_rating(challenge_input_file)
-
-solution_checker(expected_example_rating, example_rating, challenge_rating)
+bot.check(expected_power, power_consumption, [])
+bot.check(expected_rating, life_support_rating, [])

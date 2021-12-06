@@ -1,7 +1,8 @@
-from util import solution_checker 
+from util import solution_checker, Bot
 
 example_input_file = "./input/01-example.txt"
 challenge_input_file = "./input/01.txt"
+bot = Bot(example_input_file, challenge_input_file)
 
 def tally_depth_increase_1(filename: str) -> int:
     prev = None
@@ -35,15 +36,8 @@ def tally_depth_increase_2(filename: str) -> int:
 
     return tally
 
-expected_example_tally_1 = 7
-expected_example_tally_2 = 5
+expected_tally_1 = 7
+expected_tally_2 = 5
 
-example_tally_1 = tally_depth_increase_1(example_input_file)
-challenge_tally_1 = tally_depth_increase_1(challenge_input_file)
-
-solution_checker(expected_example_tally_1, example_tally_1, challenge_tally_1)
-
-example_tally_2 = tally_depth_increase_2(example_input_file)
-challenge_tally_2 = tally_depth_increase_2(challenge_input_file)
-
-solution_checker(expected_example_tally_2, example_tally_2, challenge_tally_2)
+bot.check(expected_tally_1, tally_depth_increase_1, [])
+bot.check(expected_tally_2, tally_depth_increase_2, [])

@@ -1,7 +1,8 @@
-from util import solution_checker 
+from util import solution_checker, Bot
 
 example_input_file = "./input/02-example.txt"
 challenge_input_file = "./input/02.txt"
+bot = Bot(example_input_file, challenge_input_file)
 
 def get_position_and_depth_product(filename, move_fn):
     position = 0
@@ -37,15 +38,8 @@ def move_2(cmd, amt, aim):
         case _:
             raise Exception("Panic!")
 
-expected_example_product_1 = 15 * 10
-expected_example_product_2 = 15 * 60
+expected_product_1 = 15 * 10
+expected_product_2 = 15 * 60
 
-example_product_1 = get_position_and_depth_product(example_input_file, move_1)
-challenge_product_1 = get_position_and_depth_product(challenge_input_file, move_1)
-
-solution_checker(expected_example_product_1, example_product_1, challenge_product_1)
-
-example_product_2 = get_position_and_depth_product(example_input_file, move_2)
-challenge_product_2 = get_position_and_depth_product(challenge_input_file, move_2)
-
-solution_checker(expected_example_product_2, example_product_2, challenge_product_2)
+bot.check(expected_product_1, get_position_and_depth_product, [move_1])
+bot.check(expected_product_2, get_position_and_depth_product, [move_2])

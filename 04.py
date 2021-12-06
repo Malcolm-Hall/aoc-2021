@@ -1,7 +1,8 @@
-from util import solution_checker
+from util import solution_checker, Bot
 
 example_input_file = "./input/04-example.txt"
 challenge_input_file = "./input/04.txt"
+bot = Bot(example_input_file, challenge_input_file)
 
 def parse_input(filename):
     input_boards = []
@@ -77,15 +78,8 @@ def get_final_score(filename, get_best):
             return score
 
 
-expected_example_best_score = 188 * 24
-expected_example_worst_score = 148 * 13
+expected_best_score = 188 * 24
+expected_worst_score = 148 * 13
 
-example_best_score = get_final_score(example_input_file, True)
-challenge_best_score = get_final_score(challenge_input_file, True)
-
-solution_checker(expected_example_best_score, example_best_score, challenge_best_score)
-
-example_worst_score = get_final_score(example_input_file, False)
-challenge_worst_score = get_final_score(challenge_input_file, False)
-
-solution_checker(expected_example_worst_score, example_worst_score, challenge_worst_score)
+bot.check(expected_best_score, get_final_score, [True])
+bot.check(expected_worst_score, get_final_score, [False])

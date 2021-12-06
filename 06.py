@@ -1,7 +1,8 @@
-from util import solution_checker 
+from util import solution_checker, Bot
 
 example_input_file = "./input/06-example.txt"
 challenge_input_file = "./input/06.txt"
+bot = Bot(example_input_file, challenge_input_file)
 
 class LanternfishEvolver:
     children = 0
@@ -35,15 +36,8 @@ def simulate_laternfish(filename, num_days):
         num_lanternfish += 1
     return num_lanternfish
 
-expected_example_number_of_lanternfish_1 = 5934
-expected_example_number_of_lanternfish_2 = 26984457539
+expected_number_of_lanternfish_1 = 5934
+expected_number_of_lanternfish_2 = 26984457539
 
-example_number_of_lanternfish_1 = simulate_laternfish(example_input_file, 80)
-challenge_number_of_lanternfish_1 = simulate_laternfish(challenge_input_file, 80)
-
-solution_checker(expected_example_number_of_lanternfish_1, example_number_of_lanternfish_1, challenge_number_of_lanternfish_1)
-
-example_number_of_lanternfish_2 = simulate_laternfish(example_input_file, 256)
-# challenge_number_of_lanternfish_2 = simulate_laternfish(challenge_input_file, 256)
-
-solution_checker(expected_example_number_of_lanternfish_2, example_number_of_lanternfish_2, 0)#challenge_number_of_lanternfish_2)
+bot.check(expected_number_of_lanternfish_1, simulate_laternfish, [80])
+bot.check(expected_number_of_lanternfish_2, simulate_laternfish, [256])

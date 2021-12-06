@@ -1,7 +1,8 @@
-from util import solution_checker
+from util import solution_checker, Bot
 
 example_input_file = "./input/05-example.txt"
 challenge_input_file = "./input/05.txt"
+bot = Bot(example_input_file, challenge_input_file)
 
 class Counter(dict):
     def __missing__(self, key):
@@ -43,15 +44,8 @@ def number_of_dangerous_points(filename, diagonals=False):
             dangerous_points += 1
     return dangerous_points
 
-expected_example_dangerous_points_1 = 5
-expected_example_dangerous_points_2 = 12
+expected_dangerous_points_1 = 5
+expected_dangerous_points_2 = 12
 
-example_dangerous_points_1 = number_of_dangerous_points(example_input_file)
-challenge_dangerous_points_1 = number_of_dangerous_points(challenge_input_file)
-
-solution_checker(expected_example_dangerous_points_1, example_dangerous_points_1, challenge_dangerous_points_1)
-
-example_dangerous_points_2 = number_of_dangerous_points(example_input_file, True)
-challenge_dangerous_points_2 = number_of_dangerous_points(challenge_input_file, True)
-
-solution_checker(expected_example_dangerous_points_2, example_dangerous_points_2, challenge_dangerous_points_2)
+bot.check(expected_dangerous_points_1, number_of_dangerous_points, [])
+bot.check(expected_dangerous_points_2, number_of_dangerous_points, [True])

@@ -1,5 +1,4 @@
-from util import solution_checker, Bot 
-from statistics import mean
+from util import solution_checker, Bot
 
 example_input_file = "./input/07-example.txt" 
 challenge_input_file = "./input/07.txt" 

@@ -33,5 +33,3 @@ expected_min_fuel_2 = 168
 
 bot.check(expected_min_fuel_1, get_min_fuel, [fuel_fn_1])
 bot.check(expected_min_fuel_2, get_min_fuel, [fuel_fn_2])
-
-# get_min_fuel(example_input_file, fuel_fn_2)

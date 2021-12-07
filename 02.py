@@ -12,7 +12,10 @@ def get_position_and_depth_product(filename, move_fn):
         for line in f:
             cmd, amt = line.split(" ", 1)
             amt = int(amt)
-            position, depth, aim += move_fn(cmd, amt, aim)
+            Dposition, Ddepth, Daim = move_fn(cmd, amt, aim)
+            position += Dposition
+            depth += Ddepth
+            aim += Daim
                     
     return position * depth
 

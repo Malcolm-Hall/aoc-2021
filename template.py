@@ -24,7 +24,7 @@ def make_source_and_input_file(day: Day, src_suffix: str = ".py", input_suffix: 
     src_contents = ""
     if src_suffix == ".py":
         src_contents = (
-            "from util import solution_checker, Bot \n"
+            "from util import Bot \n"
             "\n"
             f"example_input_file = \"{example_input_path}\" \n"
             f"challenge_input_file = \"{challenge_input_path}\" \n"

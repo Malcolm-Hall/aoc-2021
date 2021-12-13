@@ -1,4 +1,4 @@
-from util import solution_checker, Bot
+from util import Bot
 
 example_input_file = "./input/06-example.txt"
 challenge_input_file = "./input/06.txt"

@@ -1,4 +1,4 @@
-from util import solution_checker, Bot 
+from util import Bot 
 from collections import defaultdict
 
 example_input_file = "./input/12-example.txt" 

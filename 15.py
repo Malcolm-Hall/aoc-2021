@@ -1,64 +1,72 @@
 from util import Bot
-import math
-import copy
+from queue import PriorityQueue
 
 example_input_file = "./input/15-example.txt" 
 challenge_input_file = "./input/15.txt" 
 bot = Bot(example_input_file, challenge_input_file) 
 
-class Node:
-    neighbours: list['Node']
-    def __init__(self, risk):
-        self.risk = risk
-        self.visited = False
-        self.dist = math.inf
-        self.neighbours = []
+def dijkstra(weights, start, end):
+    visited = set()
+    lowest_weights = {}
+
+    queue = PriorityQueue()
+    queue.put((0, start))
+    while not queue.empty():
+        weight_from_start, pos = queue.get()
+        if pos == end:
+            return weight_from_start
+
+        x, y = pos
+        for neighbor in [(x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)]:
+            if neighbor not in weights or neighbor in visited:
+                continue
+
+            new_weight = weight_from_start + weights[neighbor]
+            old_weight = lowest_weights.get(neighbor)
+            if old_weight and new_weight >= old_weight:
+                continue
+
+            lowest_weights[neighbor] = new_weight
+            queue.put((new_weight, neighbor))
+
+        visited.add(pos)
+
 
 def parse_input(filename):
+    input_lines = []
     with open(filename) as f:
-        nodes = [[Node(int(risk)) for risk in line.strip()] for line in f]
-    for i in range(len(nodes)):
-        for j in range(len(nodes[0])):
-            nodes[i][j].neighbours = get_neighbours(nodes, i, j)
-    nodes[0][0].dist = 0
-    return nodes
-
-def get_neighbours(grid, i, j):
-    neighbour_offsets = ((-1, 0), ( 0,-1), ( 0, 1), ( 1, 0))
-    neighbours = []
-    for x, y in neighbour_offsets:
-        ni = i + x
-        nj = j + y
-        if ni < 0 or ni >= len(grid) or nj < 0 or nj >= len(grid[0]):
-            continue
-        neighbours.append(grid[ni][nj])
-    return neighbours
-
-def dijkstra(nodes: list[Node], target: Node):
-    unvisited_nodes = [node for row in nodes for node in row]
-
-    while len(unvisited_nodes) > 0:
-        shortest = None
-        for node in unvisited_nodes:
-            if shortest is None or node.dist < shortest.dist:
-                shortest = node
-        unvisited_nodes.remove(shortest)
-
-        if shortest == target:
-            return shortest.dist
-
-        for n in shortest.neighbours:
-            if n not in unvisited_nodes:
-                continue
-            new_min = shortest.dist + n.risk
-            if new_min < n.dist:
-                n.dist = new_min
-
-def total_risk(filename):
-    nodes = parse_input(filename)
-    total_risk = dijkstra(nodes, nodes[len(nodes)-1][len(nodes[0])-1])
-    return total_risk
+        for line in f:
+            input_lines.append(line.strip())
     
-expected_total_risk = 40
+    return len(input_lines), {
+        (int(x), int(y)): int(weight)
+        for y, line in enumerate(input_lines)
+        for x, weight in enumerate(line)
+    }
 
-bot.check(expected_total_risk, total_risk, [])
+
+def part1(filename):
+    size, weights = parse_input(filename)
+    e = size - 1
+    return dijkstra(weights, start=(0, 0), end=(e, e))
+
+
+def part2(filename) :
+    size, weights = parse_input(filename)
+    e = size * 5 - 1
+    return dijkstra(
+        weights={
+            (x + size * i, y + size * j): (weight - 1 + i + j) % 9 + 1
+            for i in range(5)
+            for j in range(5)
+            for (x, y), weight in weights.items()
+        },
+        start=(0, 0),
+        end=(e, e),
+    )
+
+expected_total_risk_1 = 40
+expected_total_risk_2 = 315
+
+bot.check(expected_total_risk_1, part1, [])
+bot.check(expected_total_risk_2, part2, [])
